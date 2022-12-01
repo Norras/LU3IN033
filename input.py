@@ -20,8 +20,6 @@ def input():
                     trames.append(cur)
                     cur=[]
             check_hex(l[3:])
-            if (len(l[3:])!=16 and (line!=last)):
-                raise Exception("Trame invalide")
             if (line==first and l[0]!='0000'):
                 raise Exception("Offset Invalide")
             if (l[0]!='0000' and (int(l[0],16)-int(previousoffset,16))!=len(previousline)):

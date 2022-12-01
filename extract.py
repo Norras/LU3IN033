@@ -51,8 +51,10 @@ def extract_flags(fragment_offset_and_flags:str)->tuple[str,str]:
     return (flags,fragment_offset)
     
 
+
 print("-------------------")
 print(extract_ethernet_header(input()[0]))
 print(extract_ip_header(input()[0]))
 extract_flags(extract_ip_header(input()[0])[4])
 print(extract_flags(extract_ip_header(input()[0])[4]))
+print(~10)
