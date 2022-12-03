@@ -41,6 +41,7 @@ def extract_ip_header(packet)->Ip:
 def value_to_ip(value:int)->str:
     return str(value>>24)+"."+str((value>>16)&0xFF)+"."+str((value>>8)&0xFF)+"."+str(value&0xFF)
 
+
 # dissociate flags from fragment offset
 # warning : returned values are in base 2
 def extract_flags(fragment_offset_and_flags:str)->tuple[str,str]:
@@ -102,3 +103,5 @@ extract_flags(extract_ip_header(input()[0])[4])
 
 print(extract_flags(extract_ip_header(input()[0])[4]))
 print(extract_tcp(input()[0]))
+
+
