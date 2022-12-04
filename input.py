@@ -3,10 +3,10 @@ import re
 
 
 #read a file of frames and return a list of its frames
-def input():
+def input(filename):
     trames = [] # frames list
     cur=[] # current trame
-    with open('realtcpforpy.txt', 'r') as f:
+    with open(filename, 'r') as f:
         lines=f.readlines()
         first=lines[0]
         print(f.read())
@@ -39,8 +39,8 @@ def check_hex(l:list):
             l.remove(i)
     return l
 
-# Path: output.py
-print("-------------------")
-print("Output")
-print(input()[0])
-print("-------------------")
+# # Path: output.py
+# print("-------------------")
+# print("Output")
+# print(input()[0])
+# print("-------------------")
