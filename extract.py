@@ -87,7 +87,6 @@ def check_if_http(packet)->bool:
 
 def extract_tcp_flags(flags_and_stuff:str)->tuple[str,str,str,str,str,str,str,str]:
     bits = str(format(int(flags_and_stuff,16),"016b"))
-    reserved=bits[4:10]
     urg = bits[10]
     ack = bits[11]
     psh = bits[12]
@@ -105,7 +104,7 @@ def extract_http(packet)->str:
     for o in http:
         if (o=="0d"):
             break
-        res[i]=res[i]+chr(int(o))
+        res=res+chr(int(o,16))
     return res
 # print("-------------------")
 # print(extract_ethernet_header(input()[0]))

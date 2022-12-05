@@ -325,12 +325,13 @@ class App:
         if (tcp_header[4]<20):
             return (extract.str_to_ip(ip_header[7]),"",arrow,extract.str_to_ip(ip_header[8]),"","IP","TCP header too short",color)
         prot="TCP"
-        if (not tcp_header[0]=='50' or tcp_header[1]=='50'): # if the port is not 80 (HTTP)
+        if ( tcp_header[0]=='50' or tcp_header[1]=='50'): # if the port is not 80 (HTTP)
             http=extract.extract_http(frame)
-            infos=infos+" "+http
+            print("---------------------------------"+http)
+            infos=infos+" "+http    
             prot=prot+"/HTTP"
         else :
-            tcp_flags=extract.extract_tcp_flags(frame)
+            tcp_flags=tcp_header[5]
             if (tcp_flags[0]=='1'):
                 infos=infos+" [URG]"
             if (tcp_flags[1]=='1'):
@@ -354,7 +355,7 @@ class App:
         if (sstr!="" and match==None):
             self.filterentry.config({"background":"#e8c0be"})
             return
-        if (match!=None and match.group(1).lower()!="ip1" and match.group(1).lower()!="ip2" and match.group(1).lower()!="port1" and match.group(1).lower()!="port2" and match.group(1).lower()!="protocol" and match.group(1).lower()!="description"):
+        if (match!=None and match.group(1).lower()!="ip1" and match.group(1).lower()!="ip2" and match.group(1).lower()!="port1" and match.group(1).lower()!="port2" and match.group(1).lower()!="protocol" and match.group(1).lower()!="desc"):
             self.filterentry.config({"background":"#e8c0be"})
             return
         self.listbox1.delete(0,END)
@@ -403,7 +404,7 @@ class App:
                 case "protocol":
                     if item[5].find(match.group(2)) >= 0:
                         filtered_data.append(item)
-                case "description":
+                case "desc":
                     if item[6].find(match.group(2)) >= 0:
                         filtered_data.append(item)
     
