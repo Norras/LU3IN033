@@ -25,6 +25,7 @@ def input(filename):
                 raise Exception("Offset Invalide")
             if (l[0]!='0000' and (int(l[0],16)-int(previousoffset,16))!=len(previousline)): # check if the offset is correct
                 raise Exception("Offset invalide")
+            [octet.lower() for octet in cleared_line]
             cur.extend(cleared_line)
             previousoffset=l[0]
             previousline=cleared_line

@@ -4,7 +4,7 @@ from input import input #import the input function from input.py
 
 Ethernet=tuple[str,str,str]
 Ip=tuple[str,str,str,str,str,str,str,str,str,str,str]
-Tcp=tuple[str,str,str,str,str,str,str,str,str]
+Tcp=tuple[str,str,str,str,int,str,str,str,str]
 
 # Define a empty value in tuple : put None
 
@@ -78,7 +78,7 @@ def extract_tcp(packet)->Tcp:
     urgent_pointer = ''.join(tcp_header[18:20])
     options = ''.join(tcp_header[20:])
 
-    return (source_port,destination_port,sequence_number,acknowledgement_number,tcp_header_length_byte,flags,window_size,checksum,urgent_pointer,options)
+    return (source_port,destination_port,sequence_number,acknowledgement_number,tcp_header_length,flags,window_size,checksum,urgent_pointer,options)
 
 def check_if_http(packet)->bool:
     tcp=extract_tcp(packet)
@@ -94,8 +94,19 @@ def extract_tcp_flags(flags_and_stuff:str)->tuple[str,str,str,str,str,str,str,st
     rst = bits[13]
     syn = bits[14]
     fin = bits[15]
-    return (reserved,urg,ack,psh,rst,syn,fin)
+    return (urg,ack,psh,rst,syn,fin)
 
+def extract_http(packet)->str:
+    ihl_int = int(packet[14][1],16)*4
+    tcp_header_length_byte = str(format(int(packet[14+ihl_int+12],16),"08b"))
+    tcp_header_length = int(tcp_header_length_byte[0:4],2)*4
+    http = packet[14+ihl_int+tcp_header_length:]
+    res=""
+    for o in http:
+        if (o=="0d"):
+            break
+        res[i]=res[i]+chr(int(o))
+    return res
 # print("-------------------")
 # print(extract_ethernet_header(input()[0]))
 # print(extract_ip_header(input()[0]))
