@@ -9,7 +9,6 @@ def input(filename):
     with open(filename, 'r') as f:
         lines=f.readlines()
         first=lines[0]
-        print(f.read())
         previousoffset='0000'
 
         for line in lines:
