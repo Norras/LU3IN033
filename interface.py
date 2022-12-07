@@ -93,47 +93,47 @@ class App:
 
         self.filtered_data=list()
         #create a frame to display the listbox and the scrollbar
-        self.listboxframe=Frame(self.window,width=1200,height=500)
+        self.listboxframe=Frame(self.window,width=1200,height=500,background="#f0f0f0")
         self.listboxframe.pack(side=TOP)
         self.listboxframe.rowconfigure(0,weight=1)
         # create listboxes to display the frames
         # listbox1 = source
-        self.listbox1 = Listbox(self.listboxframe, width=14, height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
+        self.listbox1 = Listbox(self.listboxframe, width=14, height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none",background="#f0f0f0")
         self.listbox1.grid(row=1,column=0,pady=30)
         ip1label=Label(self.listboxframe,text="Ip1",font=("Helvetica", 14))
         ip1label.grid(row=0,column=0,sticky="s",pady=(30,0))
         self.listboxlabel1=Label(self.listboxframe,text="Ip1",font=("Helvetica", 14))
         # listbox2 = source port
-        self.listbox2=Listbox(self.listboxframe,width=7,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
+        self.listbox2=Listbox(self.listboxframe,width=7,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none",background="#f0f0f0")
         self.listbox2.grid(row=1,column=1,pady=30)
         port1label=Label(self.listboxframe,text="Port1",font=("Helvetica", 14))
         port1label.grid(row=0,column=1,sticky="s",pady=(30,0))
         # listbox3 = arrow
-        self.listbox3=Listbox(self.listboxframe,width=40,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
+        self.listbox3=Listbox(self.listboxframe,width=40,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none",background="#f0f0f0")
         self.listbox3.grid(row=1,column=2,pady=30)
 
         # listbox4 = destination
-        self.listbox4=Listbox(self.listboxframe,width=14,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
+        self.listbox4=Listbox(self.listboxframe,width=14,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none",background="#f0f0f0")
         self.listbox4.grid(row=1,column=3,pady=30)
         ip2label=Label(self.listboxframe,text="Ip2",font=("Helvetica", 14))
         ip2label.grid(row=0,column=3,sticky="s",pady=(30,0))
         # listbox5 = destination port
-        self.listbox5=Listbox(self.listboxframe,width=7,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
+        self.listbox5=Listbox(self.listboxframe,width=7,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none",background="#f0f0f0")
         self.listbox5.grid(row=1,column=4,pady=30)
         port2label=Label(self.listboxframe,text="Port2",font=("Helvetica", 14))
         port2label.grid(row=0,column=4,sticky="s",pady=(30,0))
         # listbox6 = protocol
-        self.listbox6=Listbox(self.listboxframe,width=9,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
+        self.listbox6=Listbox(self.listboxframe,width=9,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none",background="#f0f0f0")
         self.listbox6.grid(row=1,column=5,pady=30)
         protocol=Label(self.listboxframe,text="Protocol",font=("Helvetica", 14))
         protocol.grid(row=0,column=5,sticky="s",pady=(30,0))
         # listbox7 = Description
-        self.listbox7=Listbox(self.listboxframe,width=35,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
+        self.listbox7=Listbox(self.listboxframe,width=35,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none",background="#f0f0f0")
         self.listbox7.grid(row=1,column=6,pady=30)
         description=Label(self.listboxframe,text="Description",font=("Helvetica", 14))
         description.grid(row=0,column=6,sticky="s",pady=(30,0))
         # create a scrollbar to scroll all listboxes
-        scrollbar = Scrollbar(self.listboxframe, orient="vertical")
+        scrollbar = Scrollbar(self.listboxframe, orient="vertical",background="#f0f0f0")
         scrollbar.grid(row=1,column=7,pady=30,sticky="ns")
         scrollbar.config(command=self.__multiple_yview)
         self.listbox1.config(yscrollcommand=scrollbar.set)
@@ -209,18 +209,19 @@ class App:
             if (color=="#000000"):
                 self.listbox1.itemconfig(self.i,fg="white",bg=color)
                 self.listbox2.itemconfig(self.i,fg="white",bg=color)
-                self.listbox3.itemconfig(self.i)
+                self.listbox3.itemconfig(self.i,{'bg':"#f0f0f0"})
                 self.listbox4.itemconfig(self.i,fg="white",bg=color)
                 self.listbox5.itemconfig(self.i,fg="white",bg=color)
                 self.listbox6.itemconfig(self.i,fg="white",bg=color)
-                self.listbox7.itemconfig(self.i,fg="white",bg=color)
+                self.listbox7.itemconfig(self.i,bg="#f0f0f0")
             else:
                 self.listbox1.itemconfig(self.i,{'bg':color})
                 self.listbox2.itemconfig(self.i,{'bg':color})
+                self.listbox3.itemconfig(self.i,{'bg':"#f0f0f0"})
                 self.listbox4.itemconfig(self.i,{'bg':color})
                 self.listbox5.itemconfig(self.i,{'bg':color})
                 self.listbox6.itemconfig(self.i,{'bg':color})
-                self.listbox7.itemconfig(self.i,{'bg':color})
+                self.listbox7.itemconfig(self.i,{'bg':"#f0f0f0"})
             self.i=self.i+1
     
     # reset the listbox and the itemlist
@@ -280,6 +281,7 @@ class App:
         index=self.listbox7.curselection()[0]
         all_desc=self.listbox7.get(0,END)
         self.descLabel.config(text="Description : "+all_desc[index])
+        self.listbox7.selection_clear(0,END)
         self.select_others(index,self.listbox1,self.listbox2,self.listbox4,self.listbox5,self.listbox6)
     
     def select_others(self,index,*others):
@@ -287,8 +289,10 @@ class App:
             if (other==self.listbox7):
                 all_desc=other.get(0,END)
                 self.descLabel.config(text="Description : "+all_desc[index])
-            other.selection_clear(0,other.size()-1)
-            other.selection_set(index)
+                other.selection_clear(0,other.size()-1)
+            else:
+                other.selection_clear(0,other.size()-1)
+                other.selection_set(index)
 
 
     def on_mousewheel(self,event):
@@ -376,10 +380,10 @@ class App:
             del self.identificationlist[ip_header[3]]
         
         if (not extract.check_if_tcp(frame)):
-            return (extract.str_to_ip(ip_header[7]),"",arrow,extract.str_to_ip(ip_header[8]),"","IP","Not a TCP frame"+infos,color)
+            return (extract.str_to_ip(ip_header[7]),"None",arrow,extract.str_to_ip(ip_header[8]),"None","IP","Not a TCP frame"+infos,color)
         tcp_header=extract.extract_tcp(frame)
         if (tcp_header[4]<20):
-            return (extract.str_to_ip(ip_header[7]),"",arrow,extract.str_to_ip(ip_header[8]),"","IP","TCP header too short",color)
+            return (extract.str_to_ip(ip_header[7]),"None",arrow,extract.str_to_ip(ip_header[8]),"None","IP","TCP header too short",color)
         prot="TCP"
 
         tcp_flags=tcp_header[5]
@@ -442,10 +446,11 @@ class App:
                 self.listbox7.insert(END, item[6])
                 self.listbox1.itemconfig(END,{'bg':item[7]}) 
                 self.listbox2.itemconfig(END,{'bg':item[7]})
+                self.listbox3.itemconfig(END,{'bg':"#f0f0f0"})
                 self.listbox4.itemconfig(END,{'bg':item[7]})
                 self.listbox5.itemconfig(END,{'bg':item[7]})
                 self.listbox6.itemconfig(END,{'bg':item[7]})
-                self.listbox7.itemconfig(END,{'bg':item[7]})
+                self.listbox7.itemconfig(END,{'bg':"#f0f0f0"})
             return
         self.filterentry.config({"background":"#b7e6b1"})
         self.filtered_data = list()
@@ -507,10 +512,11 @@ class App:
             self.listbox7.insert(END, item[6])
             self.listbox1.itemconfig(END,{'bg':item[7]})  
             self.listbox2.itemconfig(END,{'bg':item[7]})
+            self.listbox3.itemconfig(END,{'bg':"#f0f0f0"})
             self.listbox4.itemconfig(END,{'bg':item[7]})
             self.listbox5.itemconfig(END,{'bg':item[7]})
             self.listbox6.itemconfig(END,{'bg':item[7]})
-            self.listbox7.itemconfig(END,{'bg':item[7]})
+            self.listbox7.itemconfig(END,{'bg':"#f0f0f0"})
 
 
     def show(self):

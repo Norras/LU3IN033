@@ -1,7 +1,4 @@
 
-from input import input #import the input function from input.py
-
-
 Ethernet=tuple[str,str,str]
 Ip=tuple[str,str,str,str,str,str,str,str,str,str,str]
 Tcp=tuple[str,str,str,str,int,str,str,str,str]
