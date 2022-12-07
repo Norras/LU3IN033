@@ -10,16 +10,13 @@ import extract
 import re
 import platform
 
-# idée syntaxe ip1==192.11.255.2,port1==80,ip1==116.14.11.0,port1==443 etc..
-
 
 # function retuns random color in hex format except black and white and colors too close to black and white
 def random_color():
     red=random.randint(0,255)
     blue=random.randint(0,255)
     green=random.randint(0,255)
-    # check if color is too close to black
-    # entre 110 et 175
+    # check if color is too close to black or white
     while (red<150 and blue<150 and green<150) or(red>175 and blue>175 and green>175):
         red=random.randint(0,255)
         blue=random.randint(0,255)
@@ -162,6 +159,7 @@ class App:
         self.listbox5.bind("<MouseWheel>", self.on_mousewheel)
         self.listbox6.bind("<MouseWheel>", self.on_mousewheel)
         self.listbox7.bind("<MouseWheel>", self.on_mousewheel)
+
 
         self.frame2=Frame(self.window,width=600,height=300)
         self.frame2.pack(side=BOTTOM,fill=X,expand=1)
