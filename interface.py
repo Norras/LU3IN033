@@ -206,7 +206,7 @@ class App:
             self.listbox5.insert(END, destport)
             self.listbox6.insert(END, protocol)
             self.listbox7.insert(END, desc)
-            if (color=="#000000"):
+            if (color=="#000000"): # if the frame is in black
                 self.listbox1.itemconfig(self.i,fg="white",bg=color)
                 self.listbox2.itemconfig(self.i,fg="white",bg=color)
                 self.listbox3.itemconfig(self.i,{'bg':"#f0f0f0"})
@@ -347,14 +347,18 @@ class App:
     def analyse(self,frame):
         ethernet_header=extract.extract_ethernet_header(frame)
 
+        infos=""
+        if (ethernet_header[1].lower()=="ff:ff:ff:ff:ff:ff"):
+            infos=infos+"Broadcast"
         if (not extract.check_if_ip(frame)):
-            return (ethernet_header[1],"","  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶",ethernet_header[0],"","None","Not an IP frame","#000000")
+            return (ethernet_header[1],"","  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶",ethernet_header[0],"","None",infos,"#000000")
         ip_header=extract.extract_ip_header(frame)
         if (int(ip_header[1],16)*4<20):
             return (ethernet_header[1],"","  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶",ethernet_header[0],"","IP","IP header too short","#000000")
         # find the couple of ip addresses in the list of couples
         couple=self.find_couple(ip_header[7],ip_header[8])
-        
+
+
         # if the couple is not in the list of couples, add it
         if (couple==None):
             color=random_color()
@@ -364,7 +368,7 @@ class App:
             color=couple[1]
             arrow=couple[0]
 
-        infos=""
+        
 
         # Check IP Fragmentation
         if (ip_header[4]=="001"):
