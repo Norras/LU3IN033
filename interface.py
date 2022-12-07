@@ -19,7 +19,8 @@ def random_color():
     blue=random.randint(0,255)
     green=random.randint(0,255)
     # check if color is too close to black
-    while (red<150 and blue<150 and green<150) or(red>200 and blue>200 and green>200):
+    # entre 110 et 175
+    while (red<150 and blue<150 and green<150) or(red>175 and blue>175 and green>175):
         red=random.randint(0,255)
         blue=random.randint(0,255)
         green=random.randint(0,255)
@@ -52,7 +53,7 @@ class App:
     def __init__(self):
         
         self.window=Tk()
-        self.window.geometry("1200x600")
+        self.window.geometry("1500x600")
         ctypes.windll.shcore.SetProcessDpiAwareness(1)
         self.window.title("Visualisateur de trames")
         self.window.resizable(False, False)
@@ -111,7 +112,7 @@ class App:
         port1label=Label(self.listboxframe,text="Port1",font=("Helvetica", 14))
         port1label.grid(row=0,column=1,sticky="s",pady=(30,0))
         # listbox3 = arrow
-        self.listbox3=Listbox(self.listboxframe,width=12,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
+        self.listbox3=Listbox(self.listboxframe,width=40,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
         self.listbox3.grid(row=1,column=2,pady=30)
 
         # listbox4 = destination
@@ -130,7 +131,7 @@ class App:
         protocol=Label(self.listboxframe,text="Protocol",font=("Helvetica", 14))
         protocol.grid(row=0,column=5,sticky="s",pady=(30,0))
         # listbox7 = Description
-        self.listbox7=Listbox(self.listboxframe,width=22,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
+        self.listbox7=Listbox(self.listboxframe,width=35,height=16,borderwidth=0,highlightthickness=0,font=("Helvetica", 14),exportselection=0,activestyle="none")
         self.listbox7.grid(row=1,column=6,pady=30)
         description=Label(self.listboxframe,text="Description",font=("Helvetica", 14))
         description.grid(row=0,column=6,sticky="s",pady=(30,0))
@@ -239,31 +240,45 @@ class App:
         self.i=0
 
     def on_select1(self,event):
+        if (self.filtered_data==[] and self.filtervalue.get()!=""):
+            return
         index=self.listbox1.curselection()[0]
         self.select_others(index,self.listbox2,self.listbox4,self.listbox5,self.listbox6,self.listbox7)
 
     def on_select2(self,event):
+        if (self.filtered_data==[] and self.filtervalue.get()!=""):
+            return
         index=self.listbox2.curselection()[0]
         self.select_others(index,self.listbox1,self.listbox4,self.listbox5,self.listbox6,self.listbox7)
     
     def on_select3(self,event):
+        if (self.filtered_data==[] and self.filtervalue.get()!=""):
+            return
         index=self.listbox3.curselection()[0]
         self.listbox3.selection_clear(0,END)
         self.select_others(index,self.listbox1,self.listbox2,self.listbox4,self.listbox5,self.listbox6,self.listbox7)
     
     def on_select4(self,event):
+        if (self.filtered_data==[] and self.filtervalue.get()!=""):
+            return
         index=self.listbox4.curselection()[0]
         self.select_others(index,self.listbox1,self.listbox2,self.listbox5,self.listbox6,self.listbox7)
 
     def on_select5(self,event):
+        if (self.filtered_data==[] and self.filtervalue.get()!=""):
+            return
         index=self.listbox5.curselection()[0]
         self.select_others(index,self.listbox1,self.listbox2,self.listbox4,self.listbox6,self.listbox7)
     
     def on_select6(self,event):
+        if (self.filtered_data==[] and self.filtervalue.get()!=""):
+            return
         index=self.listbox6.curselection()[0]
         self.select_others(index,self.listbox1,self.listbox2,self.listbox4,self.listbox5,self.listbox7)
     
     def on_select7(self,event):
+        if (self.filtered_data==[] and self.filtervalue.get()!=""):
+            return
         index=self.listbox7.curselection()[0]
         all_desc=self.listbox7.get(0,END)
         self.descLabel.config(text="Description : "+all_desc[index])
@@ -320,9 +335,9 @@ class App:
     def find_couple(self,ip1,ip2):
         for couple in self.ip_couples:
             if (couple[0]==ip1 and couple[1]==ip2):
-                return ("  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶",couple[2])
+                return ("  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶",couple[2])
             if (couple[0]==ip2 and couple[1]==ip1):
-                return ("  ⟵⎯⎯⎯⎯⎯⎯⎯⎯⎯",couple[2])
+                return ("  ⟵⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯",couple[2])
         return None
 
 
@@ -331,10 +346,10 @@ class App:
         ethernet_header=extract.extract_ethernet_header(frame)
 
         if (not extract.check_if_ip(frame)):
-            return (ethernet_header[1],"","  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶",ethernet_header[0],"","None","Not an IP frame","#000000")
+            return (ethernet_header[1],"","  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶",ethernet_header[0],"","None","Not an IP frame","#000000")
         ip_header=extract.extract_ip_header(frame)
         if (int(ip_header[1],16)*4<20):
-            return (ethernet_header[1],"","  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶",ethernet_header[0],"","IP","IP header too short","#000000")
+            return (ethernet_header[1],"","  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶",ethernet_header[0],"","IP","IP header too short","#000000")
         # find the couple of ip addresses in the list of couples
         couple=self.find_couple(ip_header[7],ip_header[8])
         
@@ -342,7 +357,7 @@ class App:
         if (couple==None):
             color=random_color()
             self.ip_couples.append((ip_header[7],ip_header[8],color))
-            arrow="  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶"
+            arrow="  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶"
         else:
             color=couple[1]
             arrow=couple[0]
@@ -382,10 +397,8 @@ class App:
             infos=infos+" [SYN]"
         if (tcp_flags[5]=='1'):
             infos=infos+" [FIN]"
-
         if ( tcp_header[0]=='0050' or tcp_header[1]=='0050'): # if the port is not 80 (HTTP)
             http=extract.extract_http(frame)
-            print("---------------------------------"+http)
             infos=infos+" "+http    
             prot=prot+"/HTTP"
             
@@ -394,17 +407,23 @@ class App:
     
     # filter the listbox with the filter entry
     def filter_search(self,event):
-        # actuellement le filtre se présente sous la forme "type==value"
-        # Il faudrait qu'on puisse faire des filtres sur plusieurs types en même temps
-        # par exemple "ip1==value1,value2;ip2==value3,value4"
+        # filter syntax : ip1==ip1,ip2,ip3;port1==44,99,447;etc..
         sstr = self.filtervalue.get()
-        match=re.search(r"^(.*)==(.*)$",sstr)
+        regex = re.compile(r'([a-zA-Z0-9_]+==[a-zA-Z0-9_,]+)')
+        match=regex.findall(sstr)
         if (sstr!="" and match==None):
             self.filterentry.config({"background":"#e8c0be"})
             return
-        if (match!=None and match.group(1).lower()!="ip1" and match.group(1).lower()!="ip2" and match.group(1).lower()!="port1" and match.group(1).lower()!="port2" and match.group(1).lower()!="protocol" and match.group(1).lower()!="desc"):
-            self.filterentry.config({"background":"#e8c0be"})
-            return
+        self.filtervalue.set(';'.join(match))
+        filterdict={}
+        for i in match:
+            split1=i.split("==")
+            filterdict[split1[0]]=split1[1].split(",")
+        # Check if the filter is correct
+        for i in filterdict:
+            if (i.lower()!="ip1" and i.lower()!="ip2" and i.lower()!="port1" and i.lower()!="port2" and i.lower()!="protocol" and i.lower()!="desc"):
+                self.filterentry.config({"background":"#e8c0be"})
+                return
         self.listbox1.delete(0,END)
         self.listbox2.delete(0,END)
         self.listbox3.delete(0,END)
@@ -413,7 +432,7 @@ class App:
         self.listbox6.delete(0,END)
         self.listbox7.delete(0,END)
         # If filter removed show all data
-        if sstr == "":
+        if match == []:
             self.filterentry.config({"background":"#ffffff"})
             for item in self.itemlist:
                 self.listbox1.insert(END, item[0])
@@ -425,7 +444,6 @@ class App:
                 self.listbox7.insert(END, item[6])
                 self.listbox1.itemconfig(END,{'bg':item[7]}) 
                 self.listbox2.itemconfig(END,{'bg':item[7]})
-                self.listbox3.itemconfig(END,{'bg':item[7]})
                 self.listbox4.itemconfig(END,{'bg':item[7]})
                 self.listbox5.itemconfig(END,{'bg':item[7]})
                 self.listbox6.itemconfig(END,{'bg':item[7]})
@@ -434,27 +452,53 @@ class App:
         self.filterentry.config({"background":"#b7e6b1"})
         self.filtered_data = list()
         for item in self.itemlist:
-
-            match match.group(1):
-                case "ip1":
-                    if item[0].find(match.group(2)) >= 0:
-                        self.filtered_data.append(item)
-                case "port1":
-                    if item[1]==match.group(2):
-                        self.filtered_data.append(item)
-                case "ip2":
-                    if item[3].find(match.group(2)) >= 0:
-                        self.filtered_data.append(item)
-                case "port2":
-                    if item[4]==match.group(2):
-                        self.filtered_data.append(item)
-                case "protocol":
-                    if item[5].find(match.group(2)) >= 0:
-                        self.filtered_data.append(item)
-                case "desc":
-                    if item[6].find(match.group(2)) >= 0:
-                        self.filtered_data.append(item)
-    
+            ok=True
+            for i in filterdict:
+                if i.lower()=="ip1":
+                    found1=False
+                    for j in filterdict[i]:
+                        if item[0].find(j) >= 0:
+                            found1=True
+                            break
+                    ok=ok and found1
+                if i.lower()=="ip2":
+                    found2=False
+                    for j in filterdict[i]:
+                        if item[3].find(j) >= 0:
+                            found2=True
+                            break
+                    ok=ok and found2
+                if i.lower()=="port1":
+                    found3=False
+                    for j in filterdict[i]:
+                        if item[1]==j:
+                            found3=True
+                            break
+                    ok=ok and found3
+                if i.lower()=="port2":
+                    found4=False
+                    for j in filterdict[i]:
+                        if item[4]==j:
+                            found4=True
+                            break
+                    ok=ok and found4
+                if i.lower()=="protocol":
+                    found5=False
+                    for j in filterdict[i]:
+                        if item[5].find(j) >= 0:
+                            found5=True
+                            break
+                    ok=ok and found5
+                if i.lower()=="desc":
+                    found6=False
+                    for j in filterdict[i]:
+                        if item[6].find(j) >= 0:
+                            found6=True
+                            break
+                    ok=ok and found6
+            if ok:
+                self.filtered_data.append(item)
+        
         for item in self.filtered_data:
             self.listbox1.insert(END, item[0])
             self.listbox2.insert(END, item[1])
