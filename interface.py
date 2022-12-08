@@ -51,7 +51,8 @@ class App:
         
         self.window=Tk()
         self.window.geometry("1500x600")
-        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+        if (platform.system()=="Windows"):
+            ctypes.windll.shcore.SetProcessDpiAwareness(1)
         self.window.title("Visualisateur de trames")
         self.window.resizable(False, False)
         self.first=True
