@@ -226,6 +226,7 @@ class App:
 
         self.resetlistbox()
         self.descLabel.config(text="")
+        # for each frame in the list
         for frame in frames:
             source,sourceport,arrow,dest,destport,protocol,desc,color=self.analyse(frame)
             self.itemlist.append((source,sourceport,arrow,dest,destport,protocol,desc,color))
@@ -245,7 +246,7 @@ class App:
                 self.listbox5.itemconfig(self.i,fg="white",bg=color)
                 self.listbox6.itemconfig(self.i,fg="white",bg=color)
                 self.listbox7.itemconfig(self.i,bg=self.backgroundcolor)
-            else:
+            else: 
                 self.listbox1.itemconfig(self.i,{'bg':color})
                 self.listbox2.itemconfig(self.i,{'bg':color})
                 self.listbox3.itemconfig(self.i,{'bg':self.backgroundcolor})
@@ -399,13 +400,11 @@ class App:
     # analyse the frame and return a string containing the frame's content and a color
     def analyse(self,frame):
         ethernet_header=extract.extract_ethernet_header(frame)
+        # depending on the OS, the arrow is different
         if (platform.system() not in ["Windows","Darwin"]):
             arrowr="  ------------------------------------------------------------>"
-            arrowl="  <------------------------------------------------------------"
         else:
             arrowr="  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⟶"
-            arrowl="  ⟵⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
-
         infos=""
         if (ethernet_header[1].lower()=="ff:ff:ff:ff:ff:ff"):
             infos=infos+"Broadcast"
@@ -449,6 +448,7 @@ class App:
             return (extract.str_to_ip(ip_header[7]),"None",arrow,extract.str_to_ip(ip_header[8]),"None","IP","TCP header too short",color)
         prot="TCP"
 
+        # Check TCP Flags
         tcp_flags=tcp_header[5]
         if (tcp_flags[0]=='1'):
             infos=infos+" [URG]"
@@ -499,6 +499,7 @@ class App:
         # If filter removed show all data
         if match == []:
             self.filterentry.config({"background":"#ffffff"})
+            # show all data
             for item in self.itemlist:
                 self.listbox1.insert(END, item[0])
                 self.listbox2.insert(END, item[1])
@@ -572,7 +573,7 @@ class App:
                     ok=ok and found6
             if ok:
                 self.filtered_data.append(item)
-        
+        # show filtered data
         for item in self.filtered_data:
             self.listbox1.insert(END, item[0])
             self.listbox2.insert(END, item[1])
@@ -589,7 +590,7 @@ class App:
             self.listbox6.itemconfig(END,{'bg':item[7]})
             self.listbox7.itemconfig(END,{'bg':self.backgroundcolor})
 
-
+    # display window
     def show(self):
         self.window.mainloop()
 
