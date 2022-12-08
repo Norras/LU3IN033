@@ -5,7 +5,7 @@ import re
 #read a file of frames and return a list of its frames
 def input(filename):
     trames = [] # frames list
-    cur=[] # current trame
+    cur=[] # current tram*
     with open(filename, 'r') as f:
         lines=f.readlines()
         first=lines[0]
@@ -18,7 +18,6 @@ def input(filename):
                     trames.append(cur)
                     cur=[]
             cleared_line=check_hex(l[3:]) # remove useless data
-            print(cleared_line)
             if (re.search("^[0-9a-f]{4}   .*$",line)==None): # check if the line is conform to the format
                 raise Exception("Trame mal formée")
             if (line==first and l[0]!='0000'): # check if the first line is beginning with offset 0000
@@ -40,8 +39,6 @@ def check_hex(l:list):
     for i in l:
         if ((len(i)==2) and (i[0].lower() in hexvalues) and (i[1].lower() in hexvalues) and (i!='')):
             res.append(i.lower())
-        else:
-            print(i+" "+str(len(i)))
     return res
 
 # # Path: output.py
