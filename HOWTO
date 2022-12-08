@@ -1,0 +1,38 @@
+================================================================HOWTO================================================================
+Nom du programme: Visualisteur
+Auteurs: Baysan Yenal, Nsundi Mboli Patrick
+Fait le 7/12/2022.
+Taille du programme:  ko.
+Version: 1.0
+-------------------------------------------------------------------------------------------------------------------------------------
+
+
+Dans ce fichier est decrit comment executer le fichier "interface.py" etant donné que par souci de compatibilité, le programme n'est
+pas fourni avec un executable.
+
+===========================================ATTENTION=======================================
+Il est nécessaire d'avoir Python installé sur sa machine (version 3.10 ou supérieure).
+
+Il est aussi nécessaire d'avoir la librairie tkinter, sans quoi, le programme ne marchera pas.
+Pour vérifier si cette librairie est disponible sur sa machine:
+    -Ouvrir votre terminal
+    -Tapez la commande: "python -m tkinter".
+    Une fenetre devrait s'ouvrir contenant: la version de Tcl/Tk installé sur votre machine, ainsi que deux boutons "Click me" et
+"QUIT". (La version sur laquelle a été developpé le programme est la 8.6).
+
+Si un message d'erreur s'affiche, ça veut dire que vous n'avez pas le module sur votre machine
+Vous pouvez l'insatller avec la commande presente dans le Makefile, en tappant dans votre terminal: "make init".
+
+(Si vous n'avez pas Makefile vous pouvez ouvrir le fichier et copier-coller les commandes directement dans le terminal)
+===========================================================================================
+
+
+Le Makefile proposé, assez simple d'utilistaion, contient le nécessaire pour lancer le programme ("exec"), ainsi que une commande
+pour installer les modules nécessaires ("init").
+
+Pour lancer le programme:
+
+------------------Sur Linux/Windows/Mac------------------:
+-Ouvrez un terminal
+-Rendez vous sur le repertoire dans lequel se trouve le fichier "interface.py" (à l'aide de la commande "cd")
+-Lancez la commande "make exec"

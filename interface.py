@@ -269,18 +269,21 @@ class App:
         self.identificationlist={}
         self.i=0
 
+    # called by selecting an element from listbox1
     def on_select1(self,event):
         if (self.filtered_data==[] and self.filtervalue.get()!=""):
             return
         index=self.listbox1.curselection()[0]
         self.select_others(index,self.listbox2,self.listbox4,self.listbox5,self.listbox6,self.listbox7)
 
+    # called by selecting an element from listbox2
     def on_select2(self,event):
         if (self.filtered_data==[] and self.filtervalue.get()!=""):
             return
         index=self.listbox2.curselection()[0]
         self.select_others(index,self.listbox1,self.listbox4,self.listbox5,self.listbox6,self.listbox7)
     
+    # called by selecting an element from listbox3
     def on_select3(self,event):
         if (self.filtered_data==[] and self.filtervalue.get()!=""):
             return
@@ -288,24 +291,28 @@ class App:
         self.listbox3.selection_clear(0,END)
         self.select_others(index,self.listbox1,self.listbox2,self.listbox4,self.listbox5,self.listbox6,self.listbox7)
     
+    # called by selecting an element from listbox4
     def on_select4(self,event):
         if (self.filtered_data==[] and self.filtervalue.get()!=""):
             return
         index=self.listbox4.curselection()[0]
         self.select_others(index,self.listbox1,self.listbox2,self.listbox5,self.listbox6,self.listbox7)
 
+    # called by selecting an element from listbox5
     def on_select5(self,event):
         if (self.filtered_data==[] and self.filtervalue.get()!=""):
             return
         index=self.listbox5.curselection()[0]
         self.select_others(index,self.listbox1,self.listbox2,self.listbox4,self.listbox6,self.listbox7)
     
+    # called by selecting an element from listbox6
     def on_select6(self,event):
         if (self.filtered_data==[] and self.filtervalue.get()!=""):
             return
         index=self.listbox6.curselection()[0]
         self.select_others(index,self.listbox1,self.listbox2,self.listbox4,self.listbox5,self.listbox7)
     
+    # called by selecting an element from listbox7
     def on_select7(self,event):
         if (self.filtered_data==[] and self.filtervalue.get()!=""):
             return
@@ -315,6 +322,7 @@ class App:
         self.listbox7.selection_clear(0,END)
         self.select_others(index,self.listbox1,self.listbox2,self.listbox4,self.listbox5,self.listbox6)
     
+    # select the same element in the others listbox
     def select_others(self,index,*others):
         for other in others:
             if (other==self.listbox7):
@@ -325,8 +333,9 @@ class App:
                 other.selection_clear(0,other.size()-1)
                 other.selection_set(index)
 
-
+    # called by scrolling the mouse wheel
     def on_mousewheel(self,event):
+        # depending on the OS, scrolling values are not managed by the same way
         if (platform.system()=="Windows"):
             value=(-1)*int(event.delta/120)
         elif platform.system()=="Darwin":
@@ -371,6 +380,7 @@ class App:
 
     # return a list of couples ip source and ip destination by looking at the list of frames already displayed
     def find_couple(self,ip1,ip2):
+        # depending on the OS, the arrow is different
         if (platform.system() not in ["Windows","Darwin"]):
             arrowr="  ------------------------------------------------------------>"
             arrowl="  <------------------------------------------------------------"
@@ -507,11 +517,14 @@ class App:
             return
         self.filterentry.config({"background":"#b7e6b1"})
         self.filtered_data = list()
+        # check every frame
         for item in self.itemlist:
             ok=True
+            # check every captured filter
             for i in filterdict:
                 if i.lower()=="ip1":
                     found1=False
+                    # check if entered filter values are in the frame
                     for j in filterdict[i]:
                         if item[0].find(j) >= 0:
                             found1=True
@@ -519,6 +532,7 @@ class App:
                     ok=ok and found1
                 if i.lower()=="ip2":
                     found2=False
+                    # check if entered filter values are in the frame
                     for j in filterdict[i]:
                         if item[3].find(j) >= 0:
                             found2=True
@@ -526,6 +540,7 @@ class App:
                     ok=ok and found2
                 if i.lower()=="port1":
                     found3=False
+                    # check if entered filter values are in the frame
                     for j in filterdict[i]:
                         if item[1]==j:
                             found3=True
@@ -533,6 +548,7 @@ class App:
                     ok=ok and found3
                 if i.lower()=="port2":
                     found4=False
+                    # check if entered filter values are in the frame
                     for j in filterdict[i]:
                         if item[4]==j:
                             found4=True
@@ -540,6 +556,7 @@ class App:
                     ok=ok and found4
                 if i.lower()=="protocol":
                     found5=False
+                    # check if entered filter values are in the frame
                     for j in filterdict[i]:
                         if item[5].find(j) >= 0:
                             found5=True
@@ -547,6 +564,7 @@ class App:
                     ok=ok and found5
                 if i.lower()=="desc":
                     found6=False
+                    # check if entered filter values are in the frame
                     for j in filterdict[i]:
                         if item[6].find(j) >= 0:
                             found6=True
