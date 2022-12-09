@@ -1,1 +1,1 @@
-other.selection_clear(0,other.size()-1)
+ # self.window.resizable(False, False)

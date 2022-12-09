@@ -5,4 +5,4 @@ init:
 
 
 exec:
-	python interface.py
+	python -u interface.py
